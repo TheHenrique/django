@@ -1,9 +1,10 @@
-from django.http import HttpResponse
+from django.shortcuts import render
 from django.views import generic
+
+from blog.post import Post
+
 
 class PostView(generic.View):
     def get(self, request, *args, **kwargs):
-        print(request)
-        print(args)
-        print(kwargs)
-        return HttpResponse("Hello, this is the Post View!")
+        post_list = Post.objects.filter(status=1)
+        return render(request, 'index.html', {'post_list': post_list})
